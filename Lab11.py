@@ -18,6 +18,7 @@ with open("data/students.txt", "r") as f:
         sid = int(line[:3])
         name = line[3:].strip()
         students[sid] = name
+f.close()
 
 # Read assignment data
 with open("data/assignments.txt", "r") as f:
@@ -27,6 +28,7 @@ with open("data/assignments.txt", "r") as f:
         aid = int(lines[i + 1])
         points = int(lines[i + 2])
         assignments[aid] = {"name": name, "points": points}
+f.close()
 
 # Read submission data
 for filename in os.listdir("data/submissions"):
@@ -42,6 +44,7 @@ for filename in os.listdir("data/submissions"):
             if sid not in student_grades:
                 student_grades[sid] = []
             student_grades[sid].append((pct, assignments[aid]["points"]))
+    f.close()
 
 while(True):
     print("1. Student grade")
