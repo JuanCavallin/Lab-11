@@ -1,4 +1,4 @@
-#Github: https://github.com/JuanCavallin/Lab-11a/
+#Github: https://github.com/JuanCavallin/Lab-11
 import matplotlib.pyplot as plt
 import os
 
