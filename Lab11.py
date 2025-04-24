@@ -48,7 +48,7 @@ while(True):
     print("2. Assignment statistics")
     print("3. Assignment graph")
 
-    option = input("\nEnter your selection: ")
+    option = input("Enter your selection: ")
 
     if option == "1":
         name = input("What is the student's name: ")
@@ -94,14 +94,8 @@ while(True):
                     print("No submissions to display.")
                 else:
                     plt.hist(scores, bins=[0,25,50,75,100], edgecolor='black')
-                    plt.title(f"Score Distribution: {adata['name']}")
-                    plt.xlabel("Percentage")
-                    plt.ylabel("Number of Students")
-                    plt.grid(True)
-                    plt.tight_layout()
                     plt.show()
         if not found:
             print("Assignment not found")
-
     else:
         print("Invalid selection!")
