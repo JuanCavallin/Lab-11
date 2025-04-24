@@ -19,7 +19,6 @@ with open("data/students.txt", "r") as f:
         name = line[3:].strip()
         students[sid] = name
 f.close()
-
 # Read assignment data
 with open("data/assignments.txt", "r") as f:
     lines = [line.strip() for line in f.readlines()]
@@ -29,7 +28,6 @@ with open("data/assignments.txt", "r") as f:
         points = int(lines[i + 2])
         assignments[aid] = {"name": name, "points": points}
 f.close()
-
 # Read submission data
 for filename in os.listdir("data/submissions"):
     with open(os.path.join("data/submissions", filename), "r") as f:
@@ -46,59 +44,59 @@ for filename in os.listdir("data/submissions"):
             student_grades[sid].append((pct, assignments[aid]["points"]))
     f.close()
 
-while(True):
-    print("1. Student grade")
-    print("2. Assignment statistics")
-    print("3. Assignment graph")
+#while(True):
+print("1. Student grade")
+print("2. Assignment statistics")
+print("3. Assignment graph")
 
-    option = input("Enter your selection: ")
+option = input("Enter your selection: ")
 
-    if option == "1":
-        name = input("What is the student's name: ")
-        found = False
-        for sid, sname in students.items():
-            if sname.lower() == name.lower():
-                found = True
-                scores = student_grades.get(sid, [])
-                if not scores:
-                    print("This student has no submissions.")
-                else:
-                    total_earned = sum((pct / 100) * pts for pct, pts in scores)
-                    total_possible = sum(pts for _, pts in scores)
-                    grade = round((total_earned / total_possible) * 100)
-                    print(f"{grade}%")
-        if not found:
-            print("Student not found")
+if option == "1":
+    name = input("What is the student's name: ")
+    found = False
+    for sid, sname in students.items():
+        if sname.lower() == name.lower():
+            found = True
+            scores = student_grades.get(sid, [])
+            if not scores:
+                print("This student has no submissions.")
+            else:
+                total_earned = sum((pct / 100) * pts for pct, pts in scores)
+                total_possible = sum(pts for _, pts in scores)
+                grade = round((total_earned / total_possible) * 100)
+                print(f"{grade}%")
+    if not found:
+        print("Student not found")
 
-    elif option == "2":
-        name = input("What is the assignment name: ")
-        found = False
-        for aid, adata in assignments.items():
-            if adata["name"].lower() == name.lower():
-                found = True
-                scores = list(submissions.get(aid, {}).values())
-                if not scores:
-                    print("No submissions for this assignment.")
-                else:
-                    print(f"Min: {int(min(scores))}%")
-                    print(f"Avg: {int(sum(scores)/len(scores))}%")
-                    print(f"Max: {int(max(scores))}%")
-        if not found:
-            print("Assignment not found")
+elif option == "2":
+    name = input("What is the assignment name: ")
+    found = False
+    for aid, adata in assignments.items():
+        if adata["name"].lower() == name.lower():
+            found = True
+            scores = list(submissions.get(aid, {}).values())
+            if not scores:
+                print("No submissions for this assignment.")
+            else:
+                print(f"Min: {int(min(scores))}%")
+                print(f"Avg: {int(sum(scores)/len(scores))}%")
+                print(f"Max: {int(max(scores))}%")
+    if not found:
+        print("Assignment not found")
 
-    elif option == "3":
-        name = input("What is the assignment name: ")
-        found = False
-        for aid, adata in assignments.items():
-            if adata["name"].lower() == name.lower():
-                found = True
-                scores = list(submissions.get(aid, {}).values())
-                if not scores:
-                    print("No submissions to display.")
-                else:
-                    plt.hist(scores, bins=[0,25,50,75,100], edgecolor='black')
-                    plt.show()
-        if not found:
-            print("Assignment not found")
-    else:
-        print("Invalid selection!")
+elif option == "3":
+    name = input("What is the assignment name: ")
+    found = False
+    for aid, adata in assignments.items():
+        if adata["name"].lower() == name.lower():
+            found = True
+            scores = list(submissions.get(aid, {}).values())
+            if not scores:
+                print("No submissions to display.")
+            else:
+                plt.hist(scores, bins=[0,25,50,75,100], edgecolor='black')
+                plt.show()
+    if not found:
+        print("Assignment not found")
+else:
+    print("Invalid selection!")
